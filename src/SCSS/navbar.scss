@@ -1,0 +1,45 @@
+$nav-bg: rgba(255, 255, 255, 0.9);
+$nav-text: #2d3436;
+$font-main: 'Courier New', Courier, monospace;
+
+.navbar {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 15px 20px;
+  background: $nav-bg;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  position: relative; 
+
+  .nav-links {
+    display: flex;
+    gap: 35px; 
+
+    .nav-link {
+      text-decoration: none;
+      color: $nav-text;
+      font-family: $font-main;
+      font-weight: bold;
+      font-size: 1.2rem; 
+      transition: color 0.3s;
+
+      &:hover {
+        color: #007bff;
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    position: absolute; 
+    right: 30px;
+    
+    .user-name {
+      font-family: $font-main;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+  }
+}

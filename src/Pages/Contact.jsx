@@ -1,41 +1,46 @@
+import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import toast from 'react-hot-toast';
+import "../SCSS/orchid.scss";
+
 export default function Contact() {
+    const formik = useFormik({
+        initialValues: { name: '', email: '', phone: '', message: '' },
+        validationSchema: Yup.object({
+            name: Yup.string().min(2, 'Quá ngắn').required('Bắt buộc nhập'),
+            email: Yup.string().email('Email không hợp lệ').required('Bắt buộc nhập'),
+            phone: Yup.string().matches(/^[0-9]+$/, 'Chỉ bao gồm số').min(10, 'Tối thiểu 10 số').required('Bắt buộc nhập'),
+            message: Yup.string().required('Bắt buộc nhập')
+        }),
+        onSubmit: (values, { resetForm }) => {
+            toast.success(`Cảm ơn ${values.name} đã liên hệ!`);
+            resetForm(); 
+        }
+    });
+
     return (
-        <div>
-            <h1>Liên Hệ Với Chúng Tôi</h1>
-            <p>Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, vui lòng điền thông tin vào form dưới đây. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
-            
-            <form>
-                <div>
-                    <label htmlFor="name">Họ và tên: </label>
-                    <br />
-                    <input type="text" id="name" placeholder="Nhập tên của bạn" />
-                </div>
-                <br />
-                
-                <div>
-                    <label htmlFor="email">Email: </label>
-                    <br />
-                    <input type="email" id="email" placeholder="Nhập email của bạn" />
-                </div>
-                <br />
-                
-                <div>
-                    <label htmlFor="message">Nội dung tin nhắn: </label>
-                    <br />
-                    <textarea id="message" rows="5" cols="40" placeholder="Bạn muốn nhắn gửi điều gì?"></textarea>
-                </div>
-                <br />
-                
-                <button type="submit">
-                    Gửi Tin Nhắn
-                </button>
+        <div className="Profile">
+            <h1>Contact Us</h1>
+            <form onSubmit={formik.handleSubmit}>
+                {['name', 'email', 'phone', 'message'].map((field) => (
+                    <div className="input-field" key={field}>
+                        <input
+                            id={field}
+                            name={field}
+                            type={field === 'email' ? 'email' : 'text'}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values[field]}
+                        />
+                        <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                        {formik.touched[field] && formik.errors[field] && (
+                            <div style={{ color: 'red', fontSize: '12px' }}>{formik.errors[field]}</div>
+                        )}
+                    </div>
+                ))}
+                <button type="submit" className="button">Send Message</button>
             </form>
-            
-            <hr />
-            <h3>Thông tin liên hệ trực tiếp:</h3>
-            <p><strong>Email:</strong> admin@orchids-management.com</p>
-            <p><strong>Điện thoại:</strong> +84 123 456 789</p>
-            <p><strong>Địa chỉ:</strong> Thành phố Hồ Chí Minh, Việt Nam</p>
         </div>
     );
 }

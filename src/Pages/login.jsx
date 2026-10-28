@@ -1,48 +1,42 @@
-import { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/authSlice";
+import { auth, provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { Button } from "react-bootstrap";
+import toast from 'react-hot-toast';
 
 export default function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        
-        
-        if (username === "admin" && password === "123456") {
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            
            
-            localStorage.setItem("isAdmin", "true");
-            alert("Đăng nhập thành công!");
-            navigate("/admin"); 
-        } else {
-            alert("Sai tài khoản hoặc mật khẩu!");
+            dispatch(setUser({
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL
+            }));
+            
+            toast.success(`Xin chào ${user.displayName}!`);
+            navigate("/admin");
+        } catch (error) {
+            toast.error("Đăng nhập thất bại: " + error.message);
         }
     };
 
     return (
-        <div>
-            <form onSubmit={handleLogin}>
-                <h2>Đăng Nhập</h2>
-                
-                <input
-                    type="text"
-                    placeholder="Tài khoản (admin)"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                
-                <input
-                    type="password"
-                    placeholder="Mật khẩu (123456)"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                
-                <button type="submit">
-                    Vào Trang Quản Trị
-                </button>
-            </form>
+        <div className="Profile" style={{ textAlign: 'center', padding: '50px' }}>
+            <h2>Đăng Nhập Quản Trị</h2>
+            <p>Vui lòng đăng nhập bằng tài khoản Google để truy cập quyền Admin.</p>
+            <Button variant="danger" onClick={handleGoogleLogin} style={{ marginTop: '20px' }}>
+                Đăng nhập bằng Google
+            </Button>
         </div>
     );
 }

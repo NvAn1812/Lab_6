@@ -1,0 +1,92 @@
+
+.light {
+  background-color: #f4f6f8; 
+  background-size: cover; 
+  background-position: center; 
+  min-height: 100vh; 
+  background-attachment: fixed;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+
+.dark {
+  background-color: #121212; 
+  background-size: cover; 
+  background-position: center; 
+  min-height: 100vh; 
+  background-attachment: fixed;
+  color: #ffffff; 
+  transition: all 0.3s ease;
+
+
+  .navbar {
+    background-color: rgba(30, 30, 30, 0.95);
+    border-bottom: 1px solid #333;
+    
+    .nav-links .nav-link {
+      color: #ffffff; 
+      &:hover { color: #4da3ff; }
+    }
+    
+    .user-info .user-name {
+      color: #ffffff; 
+    }
+  }
+
+ 
+  .palette .color {
+    background-color: #2a2a2a; 
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  }
+  
+  .orchid-card {
+    color: #ffffff; 
+    
+    span {
+      background: #444; 
+      color: #fff;
+    }
+  }
+
+ 
+  .Profile {
+    background-color: #1e1e1e; 
+    color: #ffffff; 
+    border-color: #444;
+    
+   
+    .input-field {
+      input {
+        color: #ffffff;
+        border-color: #555;
+        background: transparent;
+
+        &:focus, &:valid {
+          border-color: #ffffff;
+        }
+
+        &:focus ~ label, &:valid ~ label {
+          color: #ffffff;
+          background-color: #1e1e1e;
+        }
+      }
+
+      label {
+        background-color: transparent;
+        color: #aaa;
+      }
+    }
+
+    
+    table {
+      color: #ffffff;
+      tr { border-bottom: 1px solid #444 !important; }
+    }
+  }
+
+ 
+  h1, h2, h3, h4, p {
+    color: #ffffff;
+  }
+}

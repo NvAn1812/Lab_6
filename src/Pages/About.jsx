@@ -1,6 +1,9 @@
+import React from 'react';
+import "../SCSS/orchid.scss";
+
 export default function About() {
     return (
-        <div>
+        <div className="Profile">
             <h1>Về Chúng Tôi</h1>
             <p>Chào mừng bạn đến với Hệ thống Quản lý Hoa Lan (Orchids Management).</p>
             <p>Dự án này được xây dựng nhằm cung cấp một nền tảng trực quan để những người yêu thích hoa lan có thể dễ dàng tìm kiếm, xem chi tiết và quản lý thông tin các loài hoa lan trên toàn thế giới.</p>
